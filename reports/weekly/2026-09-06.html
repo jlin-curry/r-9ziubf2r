@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>盤後智囊 ─ 週報 2026 第 36 週（08/31–09/06）</title>
+<script>
+// 主題決定（同日報 M6-4，FOUC 防範）：CSS parse 前設好 data-theme；失敗走 no-JS fallback。
+try {
+  document.documentElement.dataset.theme =
+    localStorage.getItem('theme') ||
+    (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+} catch (e) {}
+</script>
+<style>
+  /* 兩套色票同日報（M6-4）：內容色全走變數 */
+  :root {
+    --bg: #fff; --fg: #1c1c1e; --muted: #888;
+    --up: #d4322c; --down: #1a9850; --trig: #b8860b;
+    --border: rgba(128,128,128,.28); --border-soft: rgba(128,128,128,.18);
+    --trig-border: rgba(184,134,11,.5);
+  }
+  html[data-theme="light"] { color-scheme: light; }
+  html[data-theme="dark"] { color-scheme: dark; }
+  [data-theme="dark"] {
+    --bg: #121214; --fg: #e6e6e8; --muted: #9a9aa0;
+    --up: #ff6b5e; --down: #4cc38a; --trig: #d9a441;
+    --border: rgba(160,160,168,.32); --border-soft: rgba(160,160,168,.2);
+    --trig-border: rgba(217,164,65,.45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+      --bg: #121214; --fg: #e6e6e8; --muted: #9a9aa0;
+      --up: #ff6b5e; --down: #4cc38a; --trig: #d9a441;
+      --border: rgba(160,160,168,.32); --border-soft: rgba(160,160,168,.2);
+      --trig-border: rgba(217,164,65,.45);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { font-family: system-ui, "Segoe UI", "Microsoft JhengHei", sans-serif;
+         margin: 0; padding: 16px; max-width: 680px; margin-inline: auto;
+         line-height: 1.5; background: var(--bg); color: var(--fg); }
+  header h1 { font-size: 1.25rem; margin: 0 0 4px; display: inline-block; }
+  .theme-toggle { float: right; font: inherit; font-size: .85rem; padding: 2px 8px;
+                  border: 1px solid currentColor; border-radius: 6px;
+                  background: transparent; color: inherit; cursor: pointer; }
+  .mtabs { font-size: .85rem; margin: 2px 0 6px; }
+  .mtabs a { color: var(--muted); text-decoration: none; }
+  .mtabs a.on { color: var(--fg); font-weight: 600; border-bottom: 2px solid currentColor; }
+  .sub { color: var(--muted); font-size: .85rem; margin: 0 0 12px; }
+  .archive-nav { font-size: .8rem; color: var(--muted); margin: 4px 0 10px; }
+  .archive-nav select { font: inherit; font-size: .8rem; padding: 1px 4px; }
+  .up { color: var(--up); } .down { color: var(--down); } .flat { color: var(--muted); }
+  h2 { font-size: 1rem; margin: 18px 0 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: .82rem; }
+  th, td { padding: 6px 4px; text-align: right; white-space: nowrap; }
+  th { border-bottom: 2px solid currentColor; }
+  td:first-child, th:first-child { text-align: left; }
+  tbody tr { border-bottom: 1px solid var(--border-soft); }
+  .name { color: var(--muted); font-size: .75rem; }
+  .badge { font-size: .7rem; padding: 1px 5px; border-radius: 4px;
+           border: 1px solid currentColor; margin-left: 4px; }
+  .badge.trig { color: var(--trig); font-weight: 600; }
+  .note { color: var(--muted); font-size: .78rem; margin: 4px 0; }
+  .warnbox { color: var(--up); font-size: .82rem; margin: 4px 0; }
+  .section { margin: 14px 0 18px; padding: 10px 12px;
+             border: 1px solid var(--border); border-radius: 8px; }
+  .section h3 { font-size: .9rem; margin: 8px 0 2px; }
+  .section p, .section ul { font-size: .86rem; margin: 4px 0; }
+  .section ul { padding-left: 1.1rem; }
+  .none { color: var(--muted); font-size: .85rem; }
+  .copy-ai { font: inherit; font-size: .78rem; padding: 2px 9px; border: 1px solid currentColor;
+             border-radius: 6px; background: transparent; color: inherit; cursor: pointer; }
+  .copy-ai.copied { color: var(--down); border-color: var(--down); }
+  .ai-actions { margin: 8px 0 4px; }
+  footer { margin-top: 24px; font-size: .75rem; color: var(--muted); }
+  .disclaimer { margin-top: 8px; }
+</style>
+<script type="application/json" id="weekly-summary">"以下是我的持股/觀察組合週報（2026 第 36 週（08/31–09/06））：\n\n【指數週表現】\n- 加權指數：收 46551.13（週 +1.51%）\n\n【台股本週回顧（1 個交易日）】\n（本週資料不足，僅供參考）\n- 2330 台積電：收 2410.00、週 +0.84%、觸發 T2（09/04）、法人週計 +1,970 張、深析 續抱\n- 2379 瑞昱：收 713.00、週 +0.85%、法人週計 +28 張\n- 3481 群創：收 48.50、週 +0.83%、法人週計 -17,303 張\n- 5536 聖暉：收 853.00、週 +4.41%、法人週計 +76 張\n- 6613 朋億：收 258.50、週 +0.58%、觸發 T1（09/04）、法人週計 -44 張、深析 觀望\n\n【美股本週回顧（0 個交易日）】\n（本週資料不足，僅供參考）\n\n【AI 週度綜評】\n## 本週主軸\n2026 年第 36 週（08/31–09/06）台股市場因交易日不足，僅有一天數據可供參考。加權指數單日上漲 1.51%，收在 46551.13 點。本週台積電（2330）觸發 T2 事件，單日上漲 0.84%，法人買超 1969.801 張，並獲得「續抱」建議。\n\n## 組合檢視\n本週持有股中，聖暉（5536）表現亮眼，單日上漲 4.41%，法人買超 75.693 張。群創（3481）單日上漲 0.83%，但法人賣超 17303.043 張。觀察股瑞昱（2379）單日上漲 0.85%，法人買超 27.815 張；朋億（6613）單日上漲 0.58%，觸發 T1 事件，並獲得「觀望」建議，法人賣超 43.772 張。\n\n## 下週留意\n下週台股市場需留意瑞昱（2379）將於 2026 年 9 月 8 日進行除息，每股現金股利 25.000000 元。美股市場本週無交易日數據，下週亦無個股財報公布。整體而言，台股市場需持續觀察法人對個股的進出動向。\n\n請以資深投資顧問的角度，點評本週組合表現與下週應注意事項（不需給買賣指令）。"</script>
+</head>
+<body>
+<header>
+  <button type="button" class="theme-toggle" id="theme-toggle" title="切換深淺色">🌓</button>
+  <h1>盤後智囊</h1>
+  <nav class="mtabs"><a href="../../index.html">盤後（台股）</a>｜<a href="../../us.html">早報（美股）</a>｜<a href="../../weekly.html" class="on">週報</a></nav>
+  <p class="sub">週報　2026 第 36 週（08/31–09/06）</p>
+  
+  <div class="archive-nav">歷史週報：
+    <select onchange="if(this.value)location.href=this.value">
+      
+      <option value="../../weekly.html">2026-09-13（最新）</option>
+      
+      <option value="../../reports/weekly/2026-09-06.html" selected>2026-09-06</option>
+      
+      <option value="../../reports/weekly/2026-07-26.html">2026-07-26</option>
+      
+      <option value="../../reports/weekly/2026-07-19.html">2026-07-19</option>
+      
+    </select>
+  </div>
+  
+</header>
+
+<h2>指數週表現</h2>
+<table>
+  <thead><tr><th>指數</th><th>收盤</th><th>週漲跌</th></tr></thead>
+  <tbody>
+    
+    <tr><td>加權指數</td><td>46551.13</td><td class="up">+1.51%</td></tr>
+    
+    
+  </tbody>
+</table>
+
+<h2>台股本週回顧 <span class="note">本週 1 個交易日</span></h2>
+<p class="warnbox">⚠ 本週資料不足（僅 1 個交易日），以下僅供參考。</p>
+<table>
+  <thead><tr><th>標的</th><th>收盤</th><th>週漲跌</th><th>本週觸發</th><th>法人週計(張)</th><th>深析</th></tr></thead>
+  <tbody>
+    
+    <tr>
+      <td>2330 <span class="name">台積電·持有</span></td>
+      <td>2410.00</td>
+      <td class="up">+0.84%</td>
+      <td>T2（09/04）</td>
+      <td class="up">+1,970</td>
+      <td>續抱（09/04）</td>
+    </tr>
+    
+    <tr>
+      <td>2379 <span class="name">瑞昱·觀察</span></td>
+      <td>713.00</td>
+      <td class="up">+0.85%</td>
+      <td>—</td>
+      <td class="up">+28</td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td>3481 <span class="name">群創·持有</span></td>
+      <td>48.50</td>
+      <td class="up">+0.83%</td>
+      <td>—</td>
+      <td class="down">-17,303</td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td>5536 <span class="name">聖暉·持有</span></td>
+      <td>853.00</td>
+      <td class="up">+4.41%</td>
+      <td>—</td>
+      <td class="up">+76</td>
+      <td>—</td>
+    </tr>
+    
+    <tr>
+      <td>6613 <span class="name">朋億·觀察</span></td>
+      <td>258.50</td>
+      <td class="up">+0.58%</td>
+      <td>T1（09/04）</td>
+      <td class="down">-44</td>
+      <td>觀望（09/04）</td>
+    </tr>
+    
+    
+  </tbody>
+</table>
+
+
+<h2>美股本週回顧 <span class="note">本週 0 個交易日</span></h2>
+<p class="warnbox">⚠ 本週資料不足（僅 0 個交易日），以下僅供參考。</p>
+<table>
+  <thead><tr><th>標的</th><th>收盤</th><th>週漲跌</th><th>本週觸發</th><th>深析</th></tr></thead>
+  <tbody>
+    
+    <tr><td colspan="5" class="none">本週無美股資料</td></tr>
+  </tbody>
+</table>
+
+<p class="note">* 該項缺首日前收資料，週漲跌基準退為首日收盤（未含首日行情）。法人週計以資料所屬日（as_of）去重，「⚠不完整」表示計入天數少於該檔交易日數。</p>
+
+<div class="section">
+  <h2 style="margin-top:0">AI 週度綜評</h2>
+  
+  <h3>本週主軸</h3>
+<p>2026 年第 36 週（08/31–09/06）台股市場因交易日不足，僅有一天數據可供參考。加權指數單日上漲 1.51%，收在 46551.13 點。本週台積電（2330）觸發 T2 事件，單日上漲 0.84%，法人買超 1969.801 張，並獲得「續抱」建議。</p>
+<h3>組合檢視</h3>
+<p>本週持有股中，聖暉（5536）表現亮眼，單日上漲 4.41%，法人買超 75.693 張。群創（3481）單日上漲 0.83%，但法人賣超 17303.043 張。觀察股瑞昱（2379）單日上漲 0.85%，法人買超 27.815 張；朋億（6613）單日上漲 0.58%，觸發 T1 事件，並獲得「觀望」建議，法人賣超 43.772 張。</p>
+<h3>下週留意</h3>
+<p>下週台股市場需留意瑞昱（2379）將於 2026 年 9 月 8 日進行除息，每股現金股利 25.000000 元。美股市場本週無交易日數據，下週亦無個股財報公布。整體而言，台股市場需持續觀察法人對個股的進出動向。</p>
+  <p class="note">gemini-2.5-flash｜2026-09-06 07:06</p>
+  
+</div>
+
+<div class="section">
+  <h2 style="margin-top:0">下週事件行事曆 <span class="note">2026-09-07 ～ 2026-09-13</span></h2>
+
+  <h3>除權除息（watchlist）</h3>
+  
+  
+  
+  <ul>
+    
+    <li>2026-09-08｜2379 瑞昱｜息（現金股利 25.000000）<span class="note">〔TWSE 除權息預告（上市）〕</span></li>
+    
+  </ul>
+  
+
+  
+
+  <h3>美股財報日</h3>
+  
+  <ul>
+    
+    <li>NVDA NVIDIA｜下週無財報（下次預估 2026-11-17）</li>
+    
+    <li>AAPL Apple｜下週無財報（下次預估 2026-10-29）</li>
+    
+    <li>TSM 台積電ADR｜下週無財報（下次預估 2026-10-15）</li>
+    
+    <li>SPCX SpaceX｜下週無財報（下次預估 2026-11-03）</li>
+    
+  </ul>
+  
+  <p class="note">來源：Yahoo Finance（非官方；公司公告前為預估日，僅供參考）｜抓取 2026-09-06 07:06 UTC</p>
+</div>
+
+<div class="ai-actions">
+  <button type="button" class="copy-ai" id="copy-weekly">📋 複製週報摘要問 AI</button>
+</div>
+
+<footer>
+  資料來源：既有每日報告資料庫（TWSE/TPEx/FinMind/Yahoo Finance）＋TWSE/TPEx OpenAPI 除權息預告＋Yahoo Finance 財報日。
+  產生時間：2026-09-13 07:26
+  <div class="disclaimer">本報告為個人自動化彙整，僅供參考，不構成投資建議。</div>
+</footer>
+
+<script>
+// 複製週報摘要（重用日報 copy 機制樣式；內容取自 #weekly-summary JSON）
+(function () {
+  function fallbackCopy(text) {
+    try {
+      var t = document.createElement('textarea');
+      t.value = text; t.setAttribute('readonly', '');
+      t.style.position = 'fixed'; t.style.left = '-9999px';
+      document.body.appendChild(t); t.select();
+      var ok = document.execCommand('copy');
+      document.body.removeChild(t); return ok;
+    } catch (e) { return false; }
+  }
+  function flash(btn) {
+    var orig = btn.textContent;
+    btn.textContent = '✓ 已複製'; btn.classList.add('copied');
+    setTimeout(function () { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  }
+  var btn = document.getElementById('copy-weekly');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var text = '';
+    try { text = JSON.parse(document.getElementById('weekly-summary').textContent); } catch (e) {}
+    if (!text) return;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(
+        function () { flash(btn); },
+        function () { if (fallbackCopy(text)) flash(btn); else alert('複製失敗，請長按選取'); }
+      );
+    } else {
+      if (fallbackCopy(text)) flash(btn); else alert('複製失敗，請長按選取');
+    }
+  });
+})();
+</script>
+
+<script>
+// 深淺色切換（同日報 M6-4；本頁無圖表 → 無需 retheme hook）
+(function () {
+  function apply(theme, persist) {
+    try { document.documentElement.dataset.theme = theme; } catch (e) {}
+    if (persist) { try { localStorage.setItem('theme', theme); } catch (e) {} }
+  }
+  try {
+    var btn = document.getElementById('theme-toggle');
+    if (btn) btn.addEventListener('click', function () {
+      var cur = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+      apply(cur === 'dark' ? 'light' : 'dark', true);
+    });
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (ev) {
+      try {
+        if (!localStorage.getItem('theme')) apply(ev.matches ? 'dark' : 'light', false);
+      } catch (e) {}
+    });
+  } catch (e) {}
+})();
+</script>
+</body>
+</html>
